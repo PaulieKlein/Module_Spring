@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<context:annotation-config/>
+	
+	<bean id="client" class="com.bankonet.model.Client" autowire="constructor">
+		<constructor-arg index="0" value="1"/>
+		<constructor-arg index="1" value="nom"/>
+		<constructor-arg index="2" value="prenom"/>
+	</bean>
+	<bean id="adresse" class="com.bankonet.model.Adresse">
+		<constructor-arg index="0" value="1"/>
+		<constructor-arg index="1" value="rue"/>
+		<constructor-arg index="2" value="ville"/>
+	</bean>
+</beans>

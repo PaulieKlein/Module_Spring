@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id ="pdfReport" class="com.bankonet.report.PdfReportGenerator"></bean>
+	<bean id ="htmlReport" class="com.bankonet.report.HtmlReportGenerator"></bean>
+	<bean id ="reportService" class="com.bankonet.metier.ReportService">
+		<!--  Injection par setter
+		<property name="reportGenerator" ref="htmlReport"></property>
+		-->
+		<!-- Injection par constructeur -->
+		<constructor-arg index="0" ref="htmlReport"/>
+	</bean>
+</beans>
