@@ -78,15 +78,14 @@
 		<constructor-arg index="2" value="ville"/>
 	</bean>
 	
-	<aop:config>
-		<aop:pointcut id="servicePointcut"  expression="execution(* com.bankonet.metier.*(..),* com.bankonet.dao.*(..))"/>    		
+	  <!-- <aop:config>
+		<aop:pointcut id="servicePointcut"  expression="execution(* com.bankonet.metier.*.*(..)) ||execution(* com.bankonet.dao.*.*(..)) "/>    		
 		<aop:aspect id="loggingAspect" ref="monLogger">
-		   <!--  <aop:before method="logMethodEntry"  pointcut-ref="servicePointcut"/>    		
-		    <aop:after-returning method="logMethodExit" returning="result" pointcut-ref="servicePointcut"/> -->
+		   <aop:before method="logBefore"  pointcut-ref="servicePointcut"/>    		
 	    </aop:aspect>	    
 	</aop:config>
 
-  	<bean id="monLogger" class="com.bankonet.dao.LogAspect"/>    
-	<!--	Fin de la configuration AOP -->	
+  	<bean id="monLogger" class="com.bankonet.aspect.LogAspect"/>    
+		Fin de la configuration AOP	 -->
 	
 </beans>

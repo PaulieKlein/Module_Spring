@@ -14,6 +14,7 @@ public class BankonetMetierImpl implements IBankonetMetier {
 	@Resource(name="clientDao")
 	private IClientDao clientDao;
 	
+	
 	public void addClient(Client c){
 		clientDao.addClient(c);
 	}

@@ -3,9 +3,7 @@ package com.bankonet.test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.bankonet.metier.BankonetMetierImpl;
-import com.bankonet.model.Client;
-import com.bankonet.model.Adresse;
+import com.bankonet.metier.IBankonetMetier;
 
 public abstract class Test_TP6 {
 
@@ -14,7 +12,7 @@ public abstract class Test_TP6 {
 		ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 		
 		//Appel bean (par défaut singleton)
-		BankonetMetierImpl metier = (BankonetMetierImpl) context.getBean("metier");
+		IBankonetMetier metier = (IBankonetMetier) context.getBean("metier");
 		//metier.addClient(new Client("toto","tata","log2","mdp2",new Adresse(36, "avenue Cyrnos", "Paris")));
 		System.out.println(metier.listClients());
 	}
