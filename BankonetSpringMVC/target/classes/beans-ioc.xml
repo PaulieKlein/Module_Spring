@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+	<context:component-scan base-package="com.bankonet"/>
+	<context:annotation-config/>
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <tx:annotation-driven transaction-manager="transactionFactory"/>
+    <aop:aspectj-autoproxy/>
+   
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="My_PU"></property>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan">
+        	<list>
+        	 <value>com.bankonet.model</value>
+        	</list>
+        </property>
+        <property name="jpaVendorAdapter">
+        	<bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
+        		<property name="showSql" value="true"/>
+        		<property name="generateDdl" value="true"></property>
+        		<property name="databasePlatform" value="org.eclipse.persistence.platform.database.MySQLPlatform"></property>
+        	</bean>
+        </property>
+        <property name="jpaDialect">
+        	<bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect"/>
+        </property>
+        <property name="jpaPropertyMap">
+        	<props>
+        	 <prop key="eclipselink.weaving">static</prop>
+        	 <prop key="eclipselink.ddl-generation">create-tables</prop>
+        	</props>
+        </property>
+    </bean>
+    
+    <bean  id="transactionFactory" class="org.springframework.orm.jpa.JpaTransactionManager">
+ 		<property name="entityManagerFactory" ref="entityManagerFactory"/>
+ 	</bean>
+    
+	<!-- <bean id="dao" class="com.bankonet.dao.ClientDaoImpl">
+		<property name="entityManager">
+		        <bean class="org.springframework.orm.jpa.support.SharedEntityManagerBean">
+		            <property name = "entityManagerFactory" ref="entityManagerFactory"/>  
+		        </bean>
+		</property>
+	</bean>
+	<bean  id="metier2" class="com.bankonet.metier.BankonetMetierImpl">
+		 <property name="dao" ref="dao"/>
+	</bean>
+	 -->
+	<bean id="client" class="com.bankonet.model.Client" scope="prototype">
+		<constructor-arg index="0" value="1"/>
+		<constructor-arg index="1" value="nom"/>
+		<constructor-arg index="2" value="prenom"/>
+		<constructor-arg index="3" value="login"/>
+		<constructor-arg index="4" value="password"/>
+	</bean>
+	<bean id="adresse" class="com.bankonet.model.Adresse" scope="prototype">
+		<constructor-arg index="0" value="1"/>
+		<constructor-arg index="1" value="rue"/>
+		<constructor-arg index="2" value="ville"/>
+	</bean>
+	
+	
+	
+	  <!-- <aop:config>
+		<aop:pointcut id="servicePointcut"  expression="execution(* com.bankonet.metier.*.*(..)) ||execution(* com.bankonet.dao.*.*(..)) "/>    		
+		<aop:aspect id="loggingAspect" ref="monLogger">
+		   <aop:before method="logBefore"  pointcut-ref="servicePointcut"/>    		
+	    </aop:aspect>	    
+	</aop:config>
+
+  	<bean id="monLogger" class="com.bankonet.aspect.LogAspect"/>    
+		Fin de la configuration AOP	 -->
+</beans>
