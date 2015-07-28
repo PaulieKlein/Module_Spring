@@ -74,9 +74,9 @@ public class ClientDaoImpl implements IClientDao {
 	
 	@Transactional(propagation = Propagation.MANDATORY)
 	public List<Client> chercherClients(String motCle){
-		String texteQuery = "Select c From Client as c where c.nom =:motCle or c.prenom =:motCle";
+		String texteQuery = "Select c From Client as c where c.nom like :motCle or c.prenom like :motCle";
 	      Query query = em.createQuery(texteQuery);
-	      query.setParameter("motCle", motCle);
+	      query.setParameter("motCle", "%"+motCle+"%");
 	      List<Client> listeClients = (List<Client>) query.getResultList();
 	     
 	      return listeClients;
