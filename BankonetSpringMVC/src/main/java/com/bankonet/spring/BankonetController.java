@@ -42,7 +42,7 @@ public class BankonetController {
 		try {
 			if(c.getId()==0){
 				metier.addClient(c);
-				String result = "Un client a été ajouté.";
+				String result = "Un client "+c.getId()+" a été ajouté.";
 				model.addAttribute("result",result);
 			}else 
 			
