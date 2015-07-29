@@ -47,11 +47,15 @@ public class BankonetController {
 		try {
 			if(c.getId()==0){
 				metier.addClient(c);
+<<<<<<< HEAD
 				String result = "Le client "+c.getId()+" a été ajouté.";
 				model.addAttribute("result",result);
 			}else {
 				metier.updateClient(c);
 				String result = "Le client "+c.getId() +" a été modifié.";
+=======
+				String result = "Un client "+c.getId()+" a été ajouté.";
+>>>>>>> 5d086f84bad400007d838be9a5056e9c15306f99
 				model.addAttribute("result",result);
 			}
 			

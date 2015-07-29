@@ -78,7 +78,11 @@ public class ClientDaoImpl implements IClientDao {
 	public List<Client> chercherClients(String motCle){
 		String texteQuery = "Select c From Client as c where c.nom like :motCle or c.prenom like :motCle";
 	      Query query = em.createQuery(texteQuery);
+<<<<<<< HEAD
 	      query.setParameter("motCle","%"+motCle+"%");
+=======
+	      query.setParameter("motCle", "%"+motCle+"%");
+>>>>>>> 5d086f84bad400007d838be9a5056e9c15306f99
 	      List<Client> listeClients = (List<Client>) query.getResultList();
 	     
 	      return listeClients;

@@ -26,13 +26,17 @@
 	<legend><spring:message code="label.customer" /> :</legend>
 	<table class="table table-striped">
 	<tr>
+<<<<<<< HEAD
 		<td><form:label path="id"><spring:message code="label.id" /> : </form:label></td>
+=======
+		<td><form:label path="id"><spring:message code="label.id" />: </form:label></td>
+>>>>>>> 5d086f84bad400007d838be9a5056e9c15306f99
 		<td>${client.id}<form:hidden path="id"/></td>
 	</tr>
 	<tr>
 		<td><form:label path="nom"><spring:message code="label.lname" /> </form:label></td>
 		<td><form:input path="nom"></form:input></td>
-		<td><form:errors path="nom" style="color:red"> </form:errors></td>
+		<td><form:errors path="nom" style="color:red"/></td>
 	</tr>
 	<tr>
 		<td><form:label path="prenom"><spring:message code="label.fname" /> </form:label></td>

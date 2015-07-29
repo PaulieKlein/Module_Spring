@@ -23,7 +23,7 @@ public class BankonetMetierImpl implements IBankonetMetier {
 	
 	@Transactional(rollbackFor=Exception.class)
 	public void addClient(Client c) throws Exception{
-		clientDao.addClient(c);			
+		 clientDao.addClient(c);			
 	}
 	
 	@Transactional(readOnly=true)
