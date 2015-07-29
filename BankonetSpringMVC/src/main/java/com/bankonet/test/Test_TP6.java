@@ -19,7 +19,7 @@ public abstract class Test_TP6 {
 //			metier.addClient(new Client("Honime","Anne","anne","anne",new Adresse(11, "avenue principale", "City")));
 //		}catch(Exception e){e.printStackTrace();}
 		
-		System.out.println(metier.listClients());
+		System.out.println(metier.chercherClients("pau"));
 	}
 
 }

@@ -4,7 +4,9 @@ import java.util.List;
 
 
 
+
 import com.bankonet.model.Client;
+import com.bankonet.model.Compte;
 
 
 public interface IClientDao {
@@ -15,5 +17,7 @@ public void deleteClient(Integer idClient);
 public Client editClient(Integer idClient);
 public void updateClient(Client c);
 public List<Client> chercherClients(String motCle);
+
+
 
 }

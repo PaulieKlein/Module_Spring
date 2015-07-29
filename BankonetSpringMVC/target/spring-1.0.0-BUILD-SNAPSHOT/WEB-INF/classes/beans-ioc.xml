@@ -13,7 +13,7 @@
 
 	<context:component-scan base-package="com.bankonet"/>
 	<context:annotation-config/>
-    <context:property-placeholder location="jdbc.properties"/>
+    <context:property-placeholder location="classpath:jdbc.properties"/>
     <tx:annotation-driven transaction-manager="transactionFactory"/>
     <aop:aspectj-autoproxy/>
    
@@ -45,7 +45,7 @@
         <property name="jpaPropertyMap">
         	<props>
         	 <prop key="eclipselink.weaving">static</prop>
-        	 <prop key="eclipselink.ddl-generation">create-tables</prop>
+        	 <prop key="eclipselink.ddl-generation">drop-and-create-tables</prop>
         	</props>
         </property>
     </bean>

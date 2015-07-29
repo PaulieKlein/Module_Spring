@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <title>ClientsView</title>
 </head>
 <body style="width :50%;margin:0 auto">
@@ -23,9 +24,9 @@
 	
 	<fieldset>
 	<legend><spring:message code="label.customer" /> :</legend>
-	<table>
+	<table class="table table-striped">
 	<tr>
-		<td><form:label path="id"><spring:message code="label.id" /> </form:label></td>
+		<td><form:label path="id"><spring:message code="label.id" /> : </form:label></td>
 		<td>${client.id}<form:hidden path="id"/></td>
 	</tr>
 	<tr>
@@ -50,12 +51,16 @@
 	</tr>
 		
 	</table>
-	 <input type="submit" value="<spring:message code="label.add" /> "/>
+	<br>
+	 <input type="submit" value="<spring:message code="label.add" />" class="btn" />
 </fieldset>
 </form:form>
+<br>
 	<p style="color:green">${result}</p>
+<br>
 <fieldset>
-<table border="1">
+<legend><spring:message code="label.list" /> :</legend>
+<table  class="table table-bordered">
 	<thead style="background-color:lightblue">
 		<tr>
 			<th><spring:message code="label.id" /> </th>
@@ -63,7 +68,7 @@
 			<th><spring:message code="label.fname" /> </th>
 			<th><spring:message code="label.login" /> </th>
 			<th><spring:message code="label.password" /> </th>
-			<th colspan="2"></th>
+			<th colspan="4"></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -88,6 +93,24 @@
                     <a href="${url1}">
                             	
                            <spring:message code="label.edit" /> 
+                     </a>
+               </td>
+               <td>
+                <c:url value="/GererCC" var="cc">
+                	<c:param name="id" value="${client.id}"/>
+                </c:url>
+                    <a href="${cc}">
+                            	
+                           <spring:message code="label.cc" /> 
+                     </a>
+               </td>
+               <td>
+                    <c:url value="/GererCE" var="ce">
+                    	<c:param name="id" value="${client.id}"/>
+                    </c:url>
+                    <a href="${ce}">
+                            	
+                           <spring:message code="label.ce" /> 
                      </a>
                </td>
 			</tr>

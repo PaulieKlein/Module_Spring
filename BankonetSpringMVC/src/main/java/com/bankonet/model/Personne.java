@@ -21,7 +21,7 @@ public class Personne implements Serializable {
 	private static final long serialVersionUID = 7587089989187159432L;
 	@TableGenerator(name="yourTableGenerator",allocationSize=1)
 	@Id @GeneratedValue(strategy=GenerationType.TABLE,generator="yourTableGenerator")
-	private Integer id;
+	private Integer id=0;
 	@Column(nullable = false)
 	@Size(min = 3 , max = 60)
 	private String nom;

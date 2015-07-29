@@ -1,5 +1,6 @@
 package com.bankonet.spring;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -15,6 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bankonet.metier.IBankonetMetier;
 import com.bankonet.model.Client;
+import com.bankonet.model.Compte;
+import com.bankonet.model.CompteCourant;
+import com.bankonet.model.CompteEpargne;
+
 
 @Controller
 public class BankonetController {
@@ -42,13 +47,12 @@ public class BankonetController {
 		try {
 			if(c.getId()==0){
 				metier.addClient(c);
-				String result = "Un client a été ajouté.";
+				String result = "Le client "+c.getId()+" a été ajouté.";
 				model.addAttribute("result",result);
-			}else 
-			
-			{metier.updateClient(c);
-			String result = "Le client "+c.getId() +" a été modifié.";
-			model.addAttribute("result",result);
+			}else {
+				metier.updateClient(c);
+				String result = "Le client "+c.getId() +" a été modifié.";
+				model.addAttribute("result",result);
 			}
 			
 		} catch (Exception e) {
@@ -76,4 +80,20 @@ public class BankonetController {
 		model.addAttribute("result",result);
 		return  "clientsview"; 
     }
+	
+	@RequestMapping(value="/GererCC",method=RequestMethod.GET)
+	public String afficherCC(@RequestParam(value="id")Integer id,Model model){
+		Client client = metier.editClient(id);
+		model.addAttribute("compte",new CompteCourant());
+		model.addAttribute("liste",metier.listComptes(client, "CC"));
+		//model.addAttribute("liste",client.getCompteCourantList());
+		return "comptesCview";
+	}
+	@RequestMapping(value="/GererCE",method=RequestMethod.GET)
+	public String afficherCE(@RequestParam(value="id")  Integer id,Model model){
+		Client client = metier.editClient(id);
+		model.addAttribute("compte",new CompteEpargne());
+		model.addAttribute("liste",metier.listComptes(client, "CE") );
+		return "comptesEview";
+	}
 }
