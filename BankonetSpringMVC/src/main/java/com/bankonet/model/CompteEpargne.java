@@ -19,8 +19,7 @@ public class CompteEpargne extends Compte implements Serializable{
 
     private float plafond;
 
-	@ManyToOne
-	private Client client;
+
 	/**
      * @param id
      * @param libelle
@@ -33,7 +32,9 @@ public class CompteEpargne extends Compte implements Serializable{
     	super();
     }
     
-    public CompteEpargne(String libelle, float solde,
+    
+
+	public CompteEpargne(String libelle, float solde,
             float tauxInteret, float plafond) {
         super(libelle, solde);
         this.tauxInteret = tauxInteret;
@@ -100,4 +101,5 @@ public class CompteEpargne extends Compte implements Serializable{
         tauxInteret = newTauxInteret;
     }
 	
+  
 }

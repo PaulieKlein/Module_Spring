@@ -15,14 +15,14 @@ public class CompteCourant extends Compte implements Serializable{
 	 */
 	private static final long serialVersionUID = 9088161793555478061L;
 	private float decouvertAutorise;
-	@ManyToOne
-	private Client client;
+
 
 	public CompteCourant(){
 		super();
 	}
-	
-    public CompteCourant(String libelle, float solde,
+
+
+	public CompteCourant(String libelle, float solde,
             float decouvertAutorise) {
 
         super(libelle, solde);
@@ -54,4 +54,9 @@ public class CompteCourant extends Compte implements Serializable{
         return decouvertAutorise;
     }
    
+	
+
+	public void setDecouvertAutorise(float decouvertAutorise) {
+		this.decouvertAutorise = decouvertAutorise;
+	}
 }

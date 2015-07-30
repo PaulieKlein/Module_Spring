@@ -2,11 +2,6 @@ package com.bankonet.spring;
 
 import java.util.List;
 
-<<<<<<< HEAD
-=======
-import javax.validation.Valid;
-
->>>>>>> 5d086f84bad400007d838be9a5056e9c15306f99
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -47,8 +42,4 @@ public class BankonetRestController {
 		return metier.chercherClients(motCle);
 	}
 	
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 5d086f84bad400007d838be9a5056e9c15306f99

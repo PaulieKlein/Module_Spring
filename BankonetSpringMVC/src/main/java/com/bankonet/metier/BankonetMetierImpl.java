@@ -9,8 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bankonet.dao.IClientDao;
 import com.bankonet.dao.ICompteDao;
+import com.bankonet.model.BankonetException;
 import com.bankonet.model.Client;
 import com.bankonet.model.Compte;
+import com.bankonet.model.CompteCourant;
+import com.bankonet.model.Virement;
 
 @Service("metier")
 public class BankonetMetierImpl implements IBankonetMetier {
@@ -23,7 +26,7 @@ public class BankonetMetierImpl implements IBankonetMetier {
 	
 	@Transactional(rollbackFor=Exception.class)
 	public void addClient(Client c) throws Exception{
-		 clientDao.addClient(c);			
+		clientDao.addClient(c);			
 	}
 	
 	@Transactional(readOnly=true)
@@ -56,8 +59,8 @@ public class BankonetMetierImpl implements IBankonetMetier {
 	}
 	
 	@Transactional
-	public void addCompte(Compte c){
-		compteDao.addCompte(c);
+	public void addCompteC(CompteCourant c,Integer id){
+		compteDao.addCompteC(c,id);
 	}
 
 	public List<Compte> listComptes(Client client,String type){
@@ -84,5 +87,26 @@ public class BankonetMetierImpl implements IBankonetMetier {
 	
 	public List<Compte> findAll(){
 		return compteDao.findAll();
+	}
+	
+	@Transactional
+	public Virement effectuerVirement(Compte cptSource, Compte cptDest, float montant){
+		float cptSourceSoldeOrigine = cptSource.getSolde();
+        float cptDestSoldeOrigine = cptDest.getSolde();
+        try {
+            if (cptSource.getIdentifiant() == cptDest.getIdentifiant()) {
+                throw new BankonetException("les deux comptes doivent être différents");
+            }
+
+            if (cptSource.debitAutorise(montant) && (cptDest.creditAutorise(montant))) {
+                compteDao.transfertMontant(cptSource, cptDest, montant);
+            }
+        } catch (BankonetException e) {
+            cptSource.setSolde(cptSourceSoldeOrigine);
+            cptDest.setSolde(cptDestSoldeOrigine);
+            // Lancer une exception
+            e.printStackTrace();
+        }
+		return new Virement(cptSource, cptDest, montant);
 	}
 }

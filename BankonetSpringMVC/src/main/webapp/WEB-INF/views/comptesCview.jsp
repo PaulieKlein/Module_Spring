@@ -15,15 +15,24 @@
 	<a href="?lang=fr">fr</a>
 	|
 	<a href="?lang=en">en</a>
+	|
+	<a href="/BankonetSpringMVC/"><spring:message code="page.home.title"/></a>
+	|
+	<a href="/BankonetSpringMVC/${client.id}/virement"><spring:message code="label.virement"/></a>
 </span>
 <h1>
 	<spring:message code ="label.titleC"/> 
 </h1>
-<form:form method="POST" action="/BankonetSpringMVC/saveCompte" modelAttribute="compte">
+<h2><spring:message code="label.bienvenue"/> ${client.prenom} !</h2>
+<form:form method="POST" action="/BankonetSpringMVC/${client.id}/saveCompteC" modelAttribute="compte">
 	
 	<fieldset>
 	<legend><spring:message code="label.account" /> :</legend>
 	<table class="table table-striped">
+	<%-- <tr>
+		<td><form:label path="client.id"><spring:message code="label.id" /> : </form:label></td>
+		<td>${client.id}<form:hidden path="client.id"/></td>
+	</tr> --%>
 	<tr>
 		<td><form:label path="identifiant"><spring:message code="label.accountid" /> : </form:label></td>
 		<td>${compte.identifiant}<form:hidden path="identifiant"/></td>
@@ -74,15 +83,17 @@
 				<td><c:out value="${compte.solde}"></c:out></td>
 				<td><c:out value="${compte.decouvertAutorise}"></c:out></td>
 				<td>
-                   <c:url value="/deleteCompte" var="url">
+                   <c:url value="/deleteCompteC" var="url">
                                 <c:param name="id" value="${compte.identifiant}"/>
+                                <c:param name="idClient" value="${client.id}"/>
                     </c:url>
                     <a href="${url}">
                             	<spring:message code="label.delete" /> 
                      </a>
                </td>
                <td>
-                   <c:url value="/editCompte/${compte.identifiant}" var="url1">
+                   <c:url value="/editCompteCC/${compte.identifiant}/" var="url1">
+                   <c:param name="idClient" value="${client.id}"/>
                     </c:url>
                     <a href="${url1}">
                             	

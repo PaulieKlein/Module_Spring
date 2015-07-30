@@ -27,15 +27,14 @@ public abstract class Compte implements Serializable  {
 	private String libelle;
 	protected float solde;
 
-	@ManyToOne
-	@JoinColumn(name = "clientId")
-	private Client client;
 
+	private Client client;
 	/**
 	 * Constructeur standard.
 	 */
 	
 	Compte(){}
+	
 	
 	Compte(String libelle, float solde) {
 
@@ -47,6 +46,15 @@ public abstract class Compte implements Serializable  {
 
 
 	public abstract boolean debitAutorise(float montant)throws BankonetException;
+
+	public void setIdentifiant(int identifiant) {
+		this.identifiant = identifiant;
+	}
+
+	
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
+	}
 
 	public String getLibelle() {
 		return libelle;

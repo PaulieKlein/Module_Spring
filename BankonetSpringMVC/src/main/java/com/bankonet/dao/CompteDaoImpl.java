@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bankonet.model.Client;
 import com.bankonet.model.Compte;
+import com.bankonet.model.CompteCourant;
 
 @Repository("compteDao")
 public class CompteDaoImpl implements ICompteDao {
@@ -29,8 +30,11 @@ public class CompteDaoImpl implements ICompteDao {
 	}
 	
 	@Transactional(propagation = Propagation.MANDATORY)
-	public void addCompte(Compte c){
-		em.persist(c);
+	public void addCompteC(CompteCourant c,Integer id){	
+		Client client = em.find(Client.class,id);
+		c.setClient(client);
+		client.getCompteCourantList().add(c);
+		em.merge(client);
 	}
 	
 
@@ -89,5 +93,27 @@ public class CompteDaoImpl implements ICompteDao {
 			em.merge(c);
 		
 		}else {System.out.println("Ce compte n'exite pas");}
+	}
+	@Transactional(propagation = Propagation.MANDATORY)
+	public void transfertMontant(Compte cptSource, Compte cptDest, float montant){
+		
+		float solde1 = cptSource.getSolde()-montant;
+		float solde2 = cptDest.getSolde()+montant;
+
+		
+		String textQuery1 = " update Compte  set solde=:solde1 where identifiant=:IdSource";
+		TypedQuery<Compte> query1 = em.createQuery(textQuery1, Compte.class);
+		query1.setParameter("solde1",solde1);
+		query1.setParameter("IdSource",cptSource.getIdentifiant());
+	      
+		String textQuery2 = "update Compte set solde=:solde2 where identifiant=:IdDest";
+		TypedQuery<Compte> query2 = em.createQuery(textQuery2, Compte.class);
+		query2.setParameter("solde2",solde2);
+		query2.setParameter("IdDest",cptDest.getIdentifiant());
+
+		cptSource.setSolde(solde1);
+        cptDest.setSolde(solde2);
+        em.merge(cptSource);
+        em.merge(cptDest);
 	}
 }

@@ -21,11 +21,7 @@ public class Personne implements Serializable {
 	private static final long serialVersionUID = 7587089989187159432L;
 	@TableGenerator(name="yourTableGenerator",allocationSize=1)
 	@Id @GeneratedValue(strategy=GenerationType.TABLE,generator="yourTableGenerator")
-<<<<<<< HEAD
 	private Integer id=0;
-=======
-	private Integer id =0;
->>>>>>> 5d086f84bad400007d838be9a5056e9c15306f99
 	@Column(nullable = false)
 	@Size(min = 3 , max = 60)
 	private String nom;

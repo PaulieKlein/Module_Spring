@@ -12,6 +12,9 @@ public class Virement {
      * @param compteSource
      * @param montant
      */
+    
+    public Virement(){}
+    
     public Virement(Compte compteSource, Compte compteDestination, float montant) {
         this.compteSource = compteSource;
         this.compteDestination = compteDestination;

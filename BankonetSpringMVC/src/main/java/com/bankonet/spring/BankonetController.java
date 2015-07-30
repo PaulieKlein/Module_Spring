@@ -47,15 +47,11 @@ public class BankonetController {
 		try {
 			if(c.getId()==0){
 				metier.addClient(c);
-<<<<<<< HEAD
 				String result = "Le client "+c.getId()+" a été ajouté.";
 				model.addAttribute("result",result);
 			}else {
 				metier.updateClient(c);
 				String result = "Le client "+c.getId() +" a été modifié.";
-=======
-				String result = "Un client "+c.getId()+" a été ajouté.";
->>>>>>> 5d086f84bad400007d838be9a5056e9c15306f99
 				model.addAttribute("result",result);
 			}
 			
@@ -85,19 +81,20 @@ public class BankonetController {
 		return  "clientsview"; 
     }
 	
-	@RequestMapping(value="/GererCC",method=RequestMethod.GET)
-	public String afficherCC(@RequestParam(value="id")Integer id,Model model){
+	@RequestMapping(value="/GererCC/{id}",method=RequestMethod.GET)
+	public String afficherCC(@PathVariable("id") Integer id,Model model){
 		Client client = metier.editClient(id);
+		model.addAttribute("client",client);
 		model.addAttribute("compte",new CompteCourant());
-		model.addAttribute("liste",metier.listComptes(client, "CC"));
-		//model.addAttribute("liste",client.getCompteCourantList());
+		model.addAttribute("liste",client.getCompteCourantList());
 		return "comptesCview";
 	}
-	@RequestMapping(value="/GererCE",method=RequestMethod.GET)
-	public String afficherCE(@RequestParam(value="id")  Integer id,Model model){
+	@RequestMapping(value="/GererCE/{id}",method=RequestMethod.GET)
+	public String afficherCE(@PathVariable("id")  Integer id,Model model){
 		Client client = metier.editClient(id);
+		model.addAttribute("client",client);
 		model.addAttribute("compte",new CompteEpargne());
-		model.addAttribute("liste",metier.listComptes(client, "CE") );
+		model.addAttribute("liste",client.getCompteEpargneList());
 		return "comptesEview";
 	}
 }
